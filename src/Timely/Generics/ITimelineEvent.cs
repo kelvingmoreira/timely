@@ -2,8 +2,8 @@
 
 namespace Timely.Generics
 {
-    public interface ITimelineEvent<T> : ITimelineEvent where T : class
+    public interface ITimelineEvent<T> : ITimelineEvent where T : struct
     {
-        T Event { get; }
+        T TimePosition { get; }
     }
 }
