@@ -9,19 +9,28 @@ namespace Timely.Events
 {
     public class RelativeEvent : ITimelineEvent<int>
     {
-        private OffsetType _offsetType;
-        private DateTime _relatedDate;
+        private readonly OffsetType _offsetType;
+        private readonly DateTime _relatedDate;
 
-        public RelativeEvent(OffsetType offsetType, DateTime date)
+        public RelativeEvent(DateTime date, int offset, OffsetType offsetType)
         {
+            TimePosition = offset;
+            Name = "Event";
+
             _offsetType = offsetType;
             _relatedDate = date;
-            _name = $"Event on {Date}";
         }
 
-        private string _name;
+        public RelativeEvent(string name, DateTime date, int offset, OffsetType offsetType )
+        {
+            TimePosition = offset;
+            Name = name;
 
-        public string Name { get => _name; set => _name = value; }
+            _offsetType = offsetType;
+            _relatedDate = date;
+        }
+
+        public string Name { get; set; }
 
         public int TimePosition { get; set; }
 
@@ -37,6 +46,11 @@ namespace Timely.Events
                     _ => _relatedDate,
                 };
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} on {Date}";
         }
     }
 
